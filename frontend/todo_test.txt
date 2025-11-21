@@ -1,0 +1,6 @@
+-- augmenter la popularité  d'un produit
+    -conception de la base
+    -insertion de donnée
+    -creation fonction pour afficher les donnée
+    -definir le controlleur rest  '/market/api/produits/1/like'  pour addPopularity
+     

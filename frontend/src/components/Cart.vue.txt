@@ -1,0 +1,162 @@
+<script>
+export default {
+    data() {
+        return {
+            priceCompare: 100,
+            products: [
+                { id: 1, name: "ProduitA", unit_price: 12123, quantity: 5, description: "<b>genial</b>" },
+                { id: 2, name: "ProduitB", unit_price: -100, quantity: 4, description: "<b style='color:green';> On valide </b>" },
+                { id: 3, name: "ProduitC", unit_price: 3, quantity: 5, description: null },
+                { id: 4, name: "ProduitD", unit_price: 12, quantity: 8, description: "sans commentaire" },
+                { id: 5, name: "ProduitE", unit_price: 40, quantity: 5, description: "<b>ok</b>" },
+                { id: 6, name: "ProduitF", unit_price: -12213, quantity: 12, description: "cool" },
+                { id: 7, name: "ProduitG", unit_price: 23, quantity: 5, description: "<b>bof</b>" },
+                { id: 8, name: "ProduitH", unit_price: 9090, quantity: 8, description: "<b>incroyable</b>" },
+                { id: 9, name: "ProduitI", unit_price: 40, quantity: 5, description: "<b>super</b>" },
+                { id: 10, name: "ProduitJ", unit_price: 2323, quantity: 5, description: "<b>genial</b>" }
+
+            ]
+        }
+    },
+    computed: {
+        getHt() {
+            const ht = this.products.reduce((total, product) => {
+                return total + (product.unit_price * (product.quantity || 0));
+            }, 0);
+            return Number(ht.toFixed(2))
+        },
+        getTva() {
+            const ht = this.getHt * 20 / 100;
+            return Number(ht.toFixed(2))
+        },
+        getTcc() {
+            const tcc = this.getHt + this.getTva;
+            return Number(tcc.toFixed(2));
+        }
+    },
+    methods: {
+        isMoreEqualThan(total, price) {
+            return total >= price;
+        }
+    }
+}
+
+</script>
+<template>
+
+    <div>
+        <table border="1">
+            <th>id</th>
+            <th>name</th>
+            <th>unit_price</th>
+            <th>quantity</th>
+            <th>description</th>
+            <th>prix HT</th>
+
+
+            <tr v-for="(product, index) in products" :key="index">
+                <td> {{ product.id }} </td>
+                <td> {{ product.name }} </td>
+                <td> {{ product.unit_price }} </td>
+                <td> {{ product.quantity }} </td>
+                <td>
+                    <p v-html="`${product.description}`"></p>
+                </td>
+                <td>
+                    {{ (product.unit_price * product.quantity).toFixed(2) }} €
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <tfooter>
+
+        <span :class="{ 'total-green': isMoreEqualThan(getHt, priceCompare) }" class="total">
+            <span>
+                HT: {{ getHt }} €
+            </span>
+            <span v-if="!isMoreEqualThan(getHt, priceCompare)" style="margin-left: 20px;">
+                ------->
+                plus que {{ (priceCompare - getHt).toFixed(2) }} € pour atteindre les {{ priceCompare }} € et avoir vos
+                frais de livraisons offert !
+            </span>
+
+
+        </span>
+        <span :class="{ 'total-green': isMoreEqualThan(getTva, priceCompare) }" class="total">
+
+            <span>
+                TVA: {{ getTva }} €
+                
+            </span>
+            <span v-if="!isMoreEqualThan(getTva, priceCompare)" style="margin-left: 20px;">
+                ------->
+                plus que {{ (priceCompare - getTva).toFixed(2) }} € pour atteindre les {{ priceCompare }} € et avoir vos
+                frais de livraisons offert !
+            </span>
+        </span>
+        <span :class="{ 'total-green': isMoreEqualThan(getTcc, priceCompare) }" class="total">
+            <span>
+                TVA: {{ getTcc }} €
+            </span>
+            <span v-if="!isMoreEqualThan(getTcc, priceCompare)" style="margin-left: 20px;">
+                ------->
+                plus que {{ (priceCompare - getTcc).toFixed(2) }} € pour atteindre les {{ priceCompare }} € et avoir vos
+                frais de livraisons offert !
+            </span>
+        </span>
+    </tfooter>
+
+
+</template>
+
+<style scoped>
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Hover sur les lignes */
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Footer */
+tfooter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+tfooter span {
+    display: block;
+}
+
+/* Classe verte si condition remplie */
+.total-green {
+    color: green;
+}
+
+.total {
+    display: flex;
+
+}
+</style>

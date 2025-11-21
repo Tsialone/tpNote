@@ -1,0 +1,58 @@
+# Build Artifacts (Sorties de Compilation de Maven)
+# ------------------------------------
+# Le répertoire de construction par défaut de Maven
+/target/
+
+# Dépendances Maven gérées par l'IDE (ex: Eclipse, IntelliJ)
+# Le dossier 'target' devrait toujours être ignoré, mais c'est une sécurité
+# pour les configurations spécifiques d'IDE.
+.apt_generated
+.classpath
+.project
+.settings/
+.settings/org.eclipse.jdt.core.prefs
+/bin/
+
+# IDEs and Editors
+# ------------------------------------
+# IntelliJ/WebStorm/etc.
+.idea/
+*.iml
+*.iws
+*.ipr
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Fichiers de log et de données temporaires
+# ------------------------------------
+# Les fichiers d'archives générés par le package
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Fichiers de log
+*.log
+
+# Logs et rapports de tests
+/surefire-reports/
+/failsafe-reports/
+/jacoco-output/
+/coverage/
+
+# Fichiers de Configuration Sensibles
+# ------------------------------------
+# Fichiers de propriétés contenant des mots de passe ou clés API
+.env
+*.properties.local
+application.properties.local
+
+# Fichiers Temporaires du Système d'Exploitation
+# ------------------------------------
+.DS_Store # macOS
+Thumbs.db # Windows
