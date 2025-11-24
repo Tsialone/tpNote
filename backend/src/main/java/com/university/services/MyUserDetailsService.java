@@ -1,4 +1,4 @@
-package com.s5.rallye.services;
+package com.university.services;
 
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,11 +6,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.s5.rallye.models.User;
-import com.s5.rallye.repositories.UserRepository;
+import com.university.models.User;
+import com.university.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor

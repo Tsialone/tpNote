@@ -1,4 +1,4 @@
-package com.s5.rallye.models;
+package com.university.models;
 
 
 import jakarta.persistence.*;

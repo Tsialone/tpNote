@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 
+import com.university.dtos.StudyPeriodDTO;
+import com.university.dtos.YearDTO;
+
 @Entity
 @Table(name = "study_period")
 @Getter
@@ -28,4 +31,21 @@ public class StudyPeriod {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "year_id", nullable = false)
     private Year year;
+
+     public static StudyPeriodDTO toDto(StudyPeriod entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        // 1. Convert the nested Year entity first
+        YearDTO yearDto = Year.toDto(entity.getYear());
+        
+        // 2. Build the StudyPeriodDTO using the converted YearDTO
+        return new StudyPeriodDTO(
+            entity.getLabel(),
+            entity.getStartDate(),
+            entity.getEndDate(),
+            yearDto // Pass the converted DTO
+        );
+    }
 }

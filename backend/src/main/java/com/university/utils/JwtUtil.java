@@ -1,4 +1,4 @@
-package com.s5.rallye.utils;
+package com.university.utils;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

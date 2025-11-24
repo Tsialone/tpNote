@@ -1,10 +1,11 @@
-package com.s5.rallye.controllers;
+package com.university.controllers;
 
-import com.s5.rallye.models.User;
-import com.s5.rallye.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import com.university.models.User;
+import com.university.repositories.UserRepository;
 
 import java.util.List;
 

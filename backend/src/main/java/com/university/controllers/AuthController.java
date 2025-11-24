@@ -1,4 +1,4 @@
-package com.s5.rallye.controllers;
+package com.university.controllers;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.s5.rallye.utils.JwtUtil;
+import com.university.utils.JwtUtil;
 
 import lombok.Data;
 

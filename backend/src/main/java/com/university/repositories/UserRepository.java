@@ -1,9 +1,9 @@
-package com.s5.rallye.repositories;
+package com.university.repositories;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.s5.rallye.models.User;
+import com.university.models.User;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.s5.rallye.config;
+package com.university.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.s5.rallye.filters.JwtAuthenticationFilter;
+import com.university.filters.JwtAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {

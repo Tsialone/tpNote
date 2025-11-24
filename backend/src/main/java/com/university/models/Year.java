@@ -1,5 +1,7 @@
 package com.university.models;
 
+import com.university.dtos.YearDTO;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,4 +19,14 @@ public class Year {
     
     @Column(nullable = false, length = 50)
     private String label;
+
+    public static YearDTO toDto(Year yearEntity) {
+        if (yearEntity == null) {
+            return null;
+        }
+        return new YearDTO(
+            yearEntity.getId(),
+            yearEntity.getLabel()
+        );
+    }
 }
