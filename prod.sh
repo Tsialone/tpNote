@@ -11,8 +11,7 @@ cd ../
 npm run build --prefix $FRONT_DIR
 
 
-DIST_DIR="./prod"
-mkdir -p $DIST_DIR
+
 
 
 WAR_FILE=$(ls $BACK_DIR/target/*.war | head -n 1)
