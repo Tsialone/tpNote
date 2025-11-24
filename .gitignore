@@ -1,3 +1,4 @@
 .mvn/
 .vscode
-
+./prod/tpNote.war
+/prod/dist
