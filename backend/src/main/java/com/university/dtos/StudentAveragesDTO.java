@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentAverageDTO {
+public class StudentAveragesDTO {
     private Long studentId;
     private String etu;
-    private Double average;
-    private StudyPeriodDTO stydyPeriodDTO;
+    private Double[] averages;
 }

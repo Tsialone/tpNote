@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 public class StudyPeriodDTO {
 
+    Long id;
+
     @NotBlank(message = "Label cannot be empty")
     private String label;
 
@@ -18,10 +20,11 @@ public class StudyPeriodDTO {
     @NotNull(message = "Year ID is required")
     private YearDTO year; // Used to link to the parent Year entity
 
-    public StudyPeriodDTO(@NotBlank(message = "Label cannot be empty") String label,
+    public StudyPeriodDTO(Long id, @NotBlank(message = "Label cannot be empty") String label,
             @NotNull(message = "Start date is required") LocalDate startDate,
             @NotNull(message = "End date is required") LocalDate endDate,
             @NotNull(message = "Year ID is required") YearDTO year) {
+        this.id = id;
         this.label = label;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -58,6 +61,14 @@ public class StudyPeriodDTO {
 
     public void setYear(YearDTO year) {
         this.year = year;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     

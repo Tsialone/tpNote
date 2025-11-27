@@ -42,6 +42,7 @@ public class StudyPeriod {
         
         // 2. Build the StudyPeriodDTO using the converted YearDTO
         return new StudyPeriodDTO(
+            entity.getId(),
             entity.getLabel(),
             entity.getStartDate(),
             entity.getEndDate(),

@@ -23,7 +23,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StudyPeriodService {
-    private final StudyPeriodRepository studyPeriodRepository ;
+    private final StudyPeriodRepository studyPeriodRepository;
+
+    public StudyPeriodDTO findById(Long id) throws Exception {
+        StudyPeriod s = studyPeriodRepository.findById(id).orElseThrow(() -> new Exception("Study period with id = " + id + " not found"));
+        return StudyPeriod.toDto(s);
+    }
 
     public List<StudyPeriodDTO> findAll() {
         List<StudyPeriod> list = studyPeriodRepository.findAll();
@@ -35,7 +40,4 @@ public class StudyPeriodService {
                        .map(StudyPeriod::toDto)
                        .collect(Collectors.toList());
     }
-
-   
-
 }

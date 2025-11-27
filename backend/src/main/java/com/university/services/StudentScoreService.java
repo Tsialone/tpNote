@@ -1,5 +1,9 @@
 package com.university.services;
 
+import com.university.dtos.StudentAverageDTO;
+import com.university.dtos.StudentAveragesDTO;
+import com.university.dtos.StudyPeriodDTO;
+import com.university.models.Student;
 import com.university.models.StudentCourseUnitScore;
 import com.university.repositories.StudentCourseUnitScoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +20,49 @@ import java.util.List;
 public class StudentScoreService {
 
     private final StudentCourseUnitScoreRepository studentScoreRepository;
+    private final StudentService studentService;
+    private final StudyPeriodService studyPeriodService;
 
-    /**
-     * Get student's average score for a specific study period (simple average)
-     * @param studentId the student ID
-     * @param studyPeriodId the study period ID
-     * @return average score rounded to 2 decimal places
-     * @throws Exception 
-     * @throws NoScoresFoundException if no scores found for the student in the study period
-     */
+    public StudentAveragesDTO[] getAllStudentAverages() throws Exception {
+        List<Student> studentList = this.studentService.getAll();
+        StudentAveragesDTO[] result = new StudentAveragesDTO[studentList.size()];
+         for(int i = 0; i < studentList.size(); i ++) {
+            result[i] = this.getStudentAverages(studentList.get(i).getId());
+        }
+        return result;
+    }
+    
+
+    public StudentAveragesDTO getStudentAverages(Long studentId) throws Exception {
+        List<StudyPeriodDTO> studyPeriodList = this.studyPeriodService.findAll(); 
+        Double[] averages = new Double[studyPeriodList.size()];
+        
+        for(int i = 0; i < studyPeriodList.size(); i ++) {
+            averages[i] = this.getStudentAverageScoreByStudyPeriodId(studentId, studyPeriodList.get(i).getId());
+        }
+        Student student = this.studentService.findByStudentId(studentId);
+        StudentAveragesDTO studentAveragesDTO = new StudentAveragesDTO(
+            studentId,
+            student.getEtu(),
+            averages
+        );
+        return studentAveragesDTO;
+    }
+    
+    public StudentAverageDTO getStudentAverageByStudyPeriodDTO(Long studentId, Long studyPeriodId) throws Exception {
+        Double average = this.getStudentAverageScoreByStudyPeriodId(studentId, studyPeriodId);
+        Student student = this.studentService.findByStudentId(studentId);
+        StudyPeriodDTO studyPeriodDTO = this.studyPeriodService.findById(studyPeriodId);
+        StudentAverageDTO dto = new StudentAverageDTO(
+                studentId,
+                student.getEtu(),
+                average,
+                studyPeriodDTO
+        );
+        return dto;
+
+    }
+
     public Double getStudentAverageScoreByStudyPeriodId(Long studentId, Long studyPeriodId) throws Exception {
         Double average = studentScoreRepository.calculateAverageByStudentIdAndStudyPeriodId(
                 studentId, studyPeriodId);
@@ -36,15 +74,7 @@ public class StudentScoreService {
         return roundToTwoDecimals(average);
     }
 
-    /**
-     * Get student's weighted average score for a specific study period 
-     * (weighted by course unit credits)
-     * @param studentId the student ID
-     * @param studyPeriodId the study period ID
-     * @return weighted average score rounded to 2 decimal places
-     * @throws Exception 
-     * @throws NoScoresFoundException if no scores found for the student in the study period
-     */
+   
     public Double getStudentWeightedAverageScoreByStudyPeriodId(Long studentId, Long studyPeriodId) throws Exception {
         Double weightedAverage = studentScoreRepository
                 .calculateWeightedAverageByStudentIdAndStudyPeriodId(studentId, studyPeriodId);
@@ -56,14 +86,6 @@ public class StudentScoreService {
         return roundToTwoDecimals(weightedAverage);
     }
 
-    /**
-     * Get all scores for a student in a specific study period
-     * @param studentId the student ID
-     * @param studyPeriodId the study period ID
-     * @return list of student course unit scores
-     * @throws Exception 
-     * @throws NoScoresFoundException if no scores found for the student in the study period
-     */
     public List<StudentCourseUnitScore> getStudentScoresByStudyPeriodId(Long studentId, Long studyPeriodId) throws Exception {
         List<StudentCourseUnitScore> scores = studentScoreRepository
                 .findByStudentIdAndStudyPeriodId(studentId, studyPeriodId);
@@ -75,11 +97,6 @@ public class StudentScoreService {
         return scores;
     }
 
-    /**
-     * Round a double value to 2 decimal places
-     * @param value the value to round
-     * @return rounded value
-     */
     private Double roundToTwoDecimals(Double value) {
         if (value == null) {
             return 0.0;
