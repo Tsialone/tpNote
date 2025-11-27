@@ -27,6 +27,14 @@ services:
       - ./sql/table.sql:/docker-entrypoint-initdb.d/table.sql:ro
     networks:
       - app-net
+  
+  vue-frontend:
+    image: nginx
+    container_name: vue_frontend
+    ports:
+    - "80:80"
+    volumes:
+    - ./dist:/usr/share/
 
 networks:
   app-net:

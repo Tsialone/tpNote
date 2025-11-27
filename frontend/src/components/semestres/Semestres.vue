@@ -14,7 +14,6 @@ export default {
     methods: {
         async fetchSemestres() {
             console.log("Fetching semestres...");
-            await new Promise(resolve => setTimeout(resolve, 500)); 
 
             return [
                 { id: 1, name: 'S1' },

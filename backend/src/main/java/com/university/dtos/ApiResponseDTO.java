@@ -1,5 +1,4 @@
 package com.university.dtos; // Le package doit être adapté à votre projet
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;

@@ -14,18 +14,17 @@ export default {
         async login() {
             console.log("Tentative de connexion...");
             try {
+                this.$router.push('/semestres');
                 const response = await apiClient.post('/login', {
                     username: this.name,
                     password: this.password
                 });
 
                 console.log("Connexion réussie:", response.data);
-
+                
                 if (response.data && response.data.token) {
                     localStorage.setItem('token', response.data.token);
-                    // alert("Connexion réussie ! Token enregistré.");
                     console.log("Connexion réussie ! Token enregistré.")
-                    this.$router.push('/semestres');
 
                 } else {
                     console.log("Connexion réussie, mais aucun token reçu.")
@@ -42,12 +41,7 @@ export default {
             }
         }
     },
-    // mounted() {
-    //     if (localStorage.getItem('token')) {
-    //         console.log("Token existant, redirection vers Semestres.");
-    //         this.$router.push('/semestres');
-    //     }
-    // }
+
 }
 </script>
 
@@ -69,3 +63,59 @@ export default {
         </form>
     </div>
 </template>
+
+
+<style  scoped>
+    /* Login.vue */
+.login-container {
+    max-width: 320px;
+    margin: 80px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    font-family: sans-serif;
+}
+
+.login-container h1 {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3f51b5;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #32429e;
+}
+
+</style>
